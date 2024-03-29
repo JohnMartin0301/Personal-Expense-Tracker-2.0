@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Personal Expense Tracker </title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="budget-container">
+        <div class="budget-header">
+            <div class="welcome">
+                <h1>Welcome <span id="username"></span>!</h1>
+                <a href="#" id="logout">Logout</a>
+            </div>
+            <div class="balance">
+                <div class="title">
+                    Balance
+                </div>
+                <div class="value">
+                    <small>$</small>0
+                </div>
+            </div>
+            <div class="account">
+                <div class="income">
+                    <div class="title">
+                        Income
+                    </div>
+                    <div class="income-total">
+                        <small>$</small>0
+                    </div>
+                </div>
+                <div class="chart"></div>
+                <div class="outcome">
+                    <div class="title">
+                        Expenses
+                    </div>
+                    <div class="outcome-total">
+                        <small>$</small>0
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="budget-dashboard">
+            <div class="dash-title">Dashboard</div>
+            <div class="toggle">
+                <div class="tab1">Expenses</div>
+                <div class="tab2">Income</div>
+                <div class="tab3 active">All</div>
+            </div>
+            <div class="hide" id="income">
+                <ul class="list"></ul>
+                <div class="input">
+                    <input type="text" id="income-title-input" name="title" placeholder="Title">
+                    <input type="number" id="income-amount-input" name="amount" placeholder="$0">
+                    <div class="add-income"><img src="icon/plus.png" alt=""></div>
+                </div>
+            </div>
+            <div class="hide" id="expense">
+                <ul class="list"></ul>
+                <div class="input">
+                    <input type="text" id="expense-title-input" name="title" placeholder="Title">
+                    <input type="number" id="expense-amount-input" name="amount" placeholder="$0">
+                    <div class="add-expense"><img src="icon/plus.png" alt=""></div>
+                </div>
+            </div>
+            <div id="all">
+                <ul class="list"></ul>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="chart.js"></script>
+    <script src="budget.js"></script>
+
+    <script>
+        // Retrieve the username from localStorage and display it
+        var username = localStorage.getItem("username") || "User";
+        document.getElementById("username").innerText = username;
+        
+        // Check if user's data exists in localStorage, if not, initialize it
+        if (!localStorage.getItem(username)) {
+            localStorage.setItem(username, JSON.stringify({ income: 0, expenses: [] })); // Initialize user's data
+        }
+        
+        // Logout functionality
+        document.getElementById("logout").addEventListener("click", function(event) {
+            event.preventDefault();
+            console.log("Logout button clicked"); // Debugging log
+            localStorage.removeItem("username");
+            window.location.href = "./login-index.html"; // Redirect to login page
+        });
+        </script>
+          
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login Form</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #0F0F0F;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  .container {
+    background-color: #EEEEEE;
+    padding: 1.5em;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 14em;
+  }
+  h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .form-group {
+    margin-bottom: 20px;
+  }
+  label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  input[type="text"],
+  input[type="password"] {
+    width: 90%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+  button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #1b1b1b;
+    color: #EEEEEE;
+    cursor: pointer;
+    font-size: 16px;
+    text-align: center;
+    display: block;
+    transition: background-color 0.3s;
+  }
+  button:hover {
+    background-color: #333232;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h2>Welcome!</h2>
+  <form id="loginForm" onsubmit="return validateForm()">
+    <div class="form-group">
+      <label for="name">Please enter your name</label>
+      <input type="text" id="name" name="name" placeholder="Name" required>
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" placeholder="Password" required>
+    </div>
+    <button type="submit">Submit</button>
+  </form>
+</div>
+
+<script>
+    function validateForm() {
+        var name = document.getElementById("name").value;
+        var password = document.getElementById("password").value;
+        if (name.trim() === "" || password.trim() === "") {
+            alert("Please enter both your name and password.");
+            return false;
+        }
+
+        // Check if user data exists in localStorage
+        let userData = JSON.parse(localStorage.getItem(name)) || { username: name, data: [] };
+
+        // Store the username in localStorage
+        localStorage.setItem("username", name);
+        // Store the user's data in localStorage
+        localStorage.setItem(name, JSON.stringify(userData));
+
+        window.location.href = "./index.html";
+        return false;
+    }
+
+    // LOGOUT FUNCTIONALITY
+    document.getElementById("logout").addEventListener("click", function (event) {
+        event.preventDefault();
+        console.log("Logout button clicked"); // Debugging log
+        localStorage.removeItem("username");
+        window.location.href = "./login-index.html"; // Redirect to login page
+    });
+</script>
+    
+
+</body>
+</html>
